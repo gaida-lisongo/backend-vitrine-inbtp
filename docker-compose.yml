@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=production
+      - MYSQL_HOST=193.203.168.141
+      - MYSQL_USER=u983171197_he
+      - MYSQL_PASSWORD=P@sse2mot
+      - MYSQL_DATABASE=u983171197_he
+      - MEMCACHED_HOST=memcached
+      - MEMCACHED_PORT=11211
+      - PORT = 8081
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - memcached
+
+  memcached:
+    image: memcached:alpine
+    ports:
+      - "11211:11211"
