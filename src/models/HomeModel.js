@@ -2,10 +2,8 @@ const Model = require('./Model');
 
 class HomeModel extends Model {
     async getData() {
-        return {
-            message: 'Welcome to the API',
-            version: '1.0.0'
-        };
+        const sql = 'SELECT * FROM communique_coge';
+        return this.query(sql);
     }
 
     async getSections() {

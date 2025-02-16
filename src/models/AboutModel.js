@@ -43,6 +43,7 @@ class AboutModel extends HomeModel {
             WHERE cd.id_coge = ?
             ORDER BY cd.niveau DESC
         `;
+        
         return this.query(sql, [cogeId]);
     }
 }

@@ -11,7 +11,7 @@ class HomeController extends BaseController {
     async index(req, res) {
         try {
             const data = await this.model.getData();
-            return this.success(res, data, 'Welcome to the API');
+            return this.success(res, data, 'Communiqués');
         } catch (error) {
             return console.error('Error index', error);
         }
