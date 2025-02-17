@@ -15,10 +15,11 @@ class ServiceModel extends AboutModel {
     }
     
     async getAllPromotions() {
-        const sql = `SELECT promotion.*, niveau.intitule AS 'niveau', section.sigle AS 'section'
+        const sql = `SELECT promotion.*, niveau.intitule AS 'niveau', section.sigle, section.designation AS 'section', cycle.designation AS 'cycle', cycle.description AS 'cycle_description'
                     FROM promotion
                     INNER JOIN section ON section.id = promotion.id_section
                     INNER JOIN niveau ON niveau.id = promotion.id_niveau
+                    INNER JOIN cycle ON cycle.id = niveau.id_cycle
                 `;
         return this.query(sql);
     }
@@ -58,30 +59,22 @@ class ServiceModel extends AboutModel {
                 FROM detail_formulaire
                 INNER JOIN formulaire ON formulaire.id = detail_formulaire.id_formulaire
                 INNER JOIN frais_academique ON frais_academique.id = detail_formulaire.id_frais_acad
-                WHERE detail_formulaire.id_formulaire = ? AND frais_academique.id_annee = 3;
+                WHERE detail_formulaire.id_formulaire = ? AND frais_academique.id_annee = ?;
         `;
-        return this.query(sql, [data.id_promotion, data.id_annee]);
+        return this.query(sql, [data.id_formulaire, data.id_annee]);
     }
 
-    async getTeamByCoge(cogeId) {
-        const sql = `
-            SELECT 
-                a.id,
-                a.nom,
-                a.post_nom,
-                a.prenom,
-                a.e_mail,
-                a.avatar,
-                a.matricule,
-                cd.membre as role,
-                cd.niveau
-            FROM agent a
-            INNER JOIN coge_detail cd ON a.id = cd.id_agent
-            WHERE cd.id_coge = ?
-            ORDER BY cd.niveau DESC
-        `;
+    async getMatieresByPromotion(promotionId, anneeId) {
+        const sql = `SELECT matiere.*, unite.designation AS 'unite', unite.code AS 'codeUnite', CONCAT(agent.nom, ' ', agent.post_nom, ' ', agent.prenom) AS 'titulaire', agent.matricule
+                    FROM matiere
+                    INNER JOIN unite ON unite.id = matiere.id_unite
+                    INNER JOIN charge_horaire ON charge_horaire.id_matiere = matiere.id
+                    INNER JOIN agent ON agent.id = charge_horaire.id_titulaire
+                    WHERE unite.id_promotion = ? AND charge_horaire.id_annee = ?
+
+                `;
         
-        return this.query(sql, [cogeId]);
+        return this.query(sql, [promotionId, anneeId]);
     }
 }
 

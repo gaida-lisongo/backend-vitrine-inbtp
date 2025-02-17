@@ -28,7 +28,7 @@ class HomeModel extends Model {
                     INNER JOIN niveau ON promotion.id_niveau = niveau.id
                     INNER JOIN cycle ON cycle.id = niveau.id_cycle`;
         return this.query(sql);
-    }
+    }    
 
     async getOrientation(){
         const sql = 'SELECT * FROM orientation';
