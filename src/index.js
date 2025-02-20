@@ -5,7 +5,7 @@ const config = require('../config/database');
 const routes = require('./routes');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 1000;
 
 // corse
 app.use((req, res, next) => {
