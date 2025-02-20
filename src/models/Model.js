@@ -26,6 +26,15 @@ class Model {
             throw new Error(`Database error: ${error.message}`);
         }
     }
+
+    async lastInsertedId() {
+        try {
+            const [results] = await this.pool.query('SELECT LAST_INSERT_ID() as id');
+            return results[0].id;
+        } catch (error) {
+            throw new Error(`Database error: ${error.message}`);
+        }
+    }   
 }
 
 module.exports = Model;

@@ -55,21 +55,7 @@ router.get('/frais/:id_formulaire/:id_annee', async (req, res) => {
     return serviceController.success(res, data, 'Liste des Frais Académiques');
 });
 
-router.post('/inscription', async (req, res) => {
-    //Récupération des données du formulaire
-    const data = req.body;
-    console.log("Données => ", data);
-
-    //Récupération du fichier transmis
-    const file = req.file;
-    console.log("Fichier => ", file);
-    
-    //Enregistrement du fichier
-    const fileName = await serviceController.uploadFile(file);
-    // const result = await serviceController.model.inscription(data);
-
-    return serviceController.success(res, {}, 'Inscription effectuée avec succès');
-});
+router.post('/inscription', async (req, res) => serviceController.inscription(req, res));
 // router.get('/sections', (req, res) => homeController.sections(req, res));
 // router.get('/metriques', (req, res) => homeController.metriques(req, res));
 // router.get('/orientations', (req, res) => homeController.orientation(req, res));
