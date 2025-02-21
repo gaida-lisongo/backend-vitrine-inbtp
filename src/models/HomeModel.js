@@ -1,6 +1,6 @@
 const Model = require('./Model');
 
-class HomeModel extends Model {
+class HomeModel extends Model {    
     async getData() {
         const sql = 'SELECT * FROM communique_coge';
         return this.query(sql);
