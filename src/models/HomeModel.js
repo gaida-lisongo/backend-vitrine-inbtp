@@ -6,6 +6,11 @@ class HomeModel extends Model {
         return this.query(sql);
     }
 
+    async getMentions() {
+        const sql = 'SELECT * FROM mentions';
+        return this.query(sql);
+    }
+
     async getSections() {
         const sql = 'SELECT * FROM section';
         return this.query(sql);

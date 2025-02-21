@@ -16,7 +16,16 @@ class HomeController extends BaseController {
             return console.error('Error index', error);
         }
     }
-
+     
+    async mentions(req, res) {
+        try {
+            const data = await this.model.getMentions();
+            return this.success(res, data, 'Liste des mentions');
+        } catch (error) {
+            return console.error('Error sections', error);
+        }
+    }
+     
     async sections(req, res) {
         try {
             const data = await this.model.getSections();
@@ -31,11 +40,6 @@ class HomeController extends BaseController {
             const etudiants = await this.model.getEtudiants();
             const matieres = await this.model.getMatieres();
             const promotions = await this.model.getPromotions();
-
-            console.log('etudiants', etudiants);
-            console.log('matieres', matieres);
-            console.log('promotions', promotions);
-
             const data = {
                 etudiants: etudiants.length,
                 matieres: matieres.length,

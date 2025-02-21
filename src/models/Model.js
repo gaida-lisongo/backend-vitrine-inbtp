@@ -3,7 +3,6 @@ const config = require('../../config/database');
 
 class Model {
     constructor() {
-        console.log('Config:', config.mysql);
         this.pool = mysql.createPool(config.mysql);
         this.initializeDatabase();
     }
@@ -11,9 +10,7 @@ class Model {
     async initializeDatabase() {
         try {
             await this.pool.getConnection();
-            console.log('✅ Connexion MySQL réussie!');
         } catch (error) {
-            console.error('❌ Erreur de connexion MySQL:', error);
             throw error;
         }
     }

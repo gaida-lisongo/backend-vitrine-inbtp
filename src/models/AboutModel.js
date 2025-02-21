@@ -4,6 +4,7 @@ class AboutModel extends HomeModel {
     async getAllYears() {
         const sql = 'SELECT * FROM annee';
         return this.query(sql);
+        
     }
 
     async getYearById(id) {

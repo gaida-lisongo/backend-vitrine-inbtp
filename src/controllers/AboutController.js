@@ -26,8 +26,7 @@ class AboutController extends HomeController {
                 team: team,
                 coge: coge[0]
             }
-
-            console.log('data', data);  
+            
             return this.success(res, data, 'Liste des membres de l\'équipe');
         } catch (error) {
             return console.error('Error team', error);
